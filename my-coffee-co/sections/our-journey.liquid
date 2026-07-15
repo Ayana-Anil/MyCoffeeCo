@@ -1,0 +1,156 @@
+<section class="mcc-journey" id="journey-section">
+  <div class="mcc-journey__inner">
+    <div class="mcc-journey__visual">
+      {%- comment -%} Animated Journey SVG {%- endcomment -%}
+      <div class="mcc-journey__svg-wrap">
+        <svg class="mcc-journey__svg" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="6" result="blur"></feGaussianBlur>
+              <feComposite in="SourceGraphic" in2="blur" operator="over"></feComposite>
+            </filter>
+          </defs>
+
+          {%- comment -%} The Journey Path {%- endcomment -%}
+          <path
+            id="journey-path"
+            d="M40 160C80 160 100 80 140 80C180 80 220 180 260 140C300 100 320 80 360 80"
+            stroke="#0a06ff"
+            stroke-width="4"
+            stroke-linecap="round"
+            style="filter: url(#glow); transition: stroke-dashoffset 3s cubic-bezier(0.4, 0, 0.2, 1);">
+          </path>
+
+          {%- comment -%} Journey Markers {%- endcomment -%}
+          {% for block in section.blocks %}
+            {% case forloop.index %}
+              {% when 1 %}
+                <g class="marker" id="marker-0" {{ block.shopify_attributes }}>
+                  <circle cx="40" cy="160" r="8" fill="#1a1c1c" stroke="#fff" stroke-width="2"></circle>
+                  <text x="40" y="185" text-anchor="middle" fill="#1a1c1c" font-family="Montserrat" font-size="10" font-weight="700">{{ block.settings.label }}</text>
+                </g>
+              {% when 2 %}
+                <g class="marker" id="marker-1" {{ block.shopify_attributes }}>
+                  <circle cx="140" cy="80" r="8" fill="#1a1c1c" stroke="#fff" stroke-width="2"></circle>
+                  <text x="140" y="105" text-anchor="middle" fill="#1a1c1c" font-family="Montserrat" font-size="10" font-weight="700">{{ block.settings.label }}</text>
+                </g>
+              {% when 3 %}
+                <g class="marker" id="marker-2" {{ block.shopify_attributes }}>
+                  <circle cx="260" cy="140" r="8" fill="#1a1c1c" stroke="#fff" stroke-width="2"></circle>
+                  <text x="260" y="165" text-anchor="middle" fill="#1a1c1c" font-family="Montserrat" font-size="10" font-weight="700">{{ block.settings.label }}</text>
+                </g>
+              {% when 4 %}
+                <g class="marker" id="marker-3" {{ block.shopify_attributes }}>
+                  <circle cx="360" cy="80" r="8" fill="#1a1c1c" stroke="#fff" stroke-width="2"></circle>
+                  <text x="360" y="105" text-anchor="middle" fill="#1a1c1c" font-family="Montserrat" font-size="10" font-weight="700">{{ block.settings.label }}</text>
+                </g>
+            {% endcase %}
+          {% endfor %}
+        </svg>
+      </div>
+    </div>
+
+    <div class="mcc-journey__content reveal">
+      <span class="mcc-journey__label">{{ section.settings.label }}</span>
+      <h3 class="mcc-journey__title text-headline-lg-mobile">{{ section.settings.title }}</h3>
+      <p class="mcc-journey__body">{{ section.settings.body_text }}</p>
+      <p class="mcc-journey__body-secondary">{{ section.settings.body_text_2 }}</p>
+      <div class="mcc-journey__stats">
+        <div class="mcc-journey__stat">
+          <h5 class="mcc-journey__stat-value">{{ section.settings.stat_1_value }}</h5>
+          <p class="mcc-journey__stat-label">{{ section.settings.stat_1_label }}</p>
+        </div>
+        <div class="mcc-journey__stat">
+          <h5 class="mcc-journey__stat-value">{{ section.settings.stat_2_value }}</h5>
+          <p class="mcc-journey__stat-label">{{ section.settings.stat_2_label }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Our Journey",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Section Label",
+      "default": "Traceability"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "OUR JOURNEY"
+    },
+    {
+      "type": "textarea",
+      "id": "body_text",
+      "label": "Body Text",
+      "default": "From the high-altitude farms of Colombia to our precision roasting facility in London, we maintain a direct line of quality."
+    },
+    {
+      "type": "textarea",
+      "id": "body_text_2",
+      "label": "Secondary Body Text",
+      "default": "Every bean is tracked, every roast profile is documented, and every cup is an honest reflection of its origin. No middlemen, no compromise."
+    },
+    {
+      "type": "header",
+      "content": "Stats"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_value",
+      "label": "Stat 1 Value",
+      "default": "100%"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_label",
+      "label": "Stat 1 Label",
+      "default": "DIRECT TRADE"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_value",
+      "label": "Stat 2 Value",
+      "default": "SINGLE"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_label",
+      "label": "Stat 2 Label",
+      "default": "ORIGIN ONLY"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "marker",
+      "name": "Journey Marker",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Marker Label",
+          "default": "Farm"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Our Journey",
+      "blocks": [
+        { "type": "marker", "settings": { "label": "Farm" } },
+        { "type": "marker", "settings": { "label": "Roastery" } },
+        { "type": "marker", "settings": { "label": "Logistics" } },
+        { "type": "marker", "settings": { "label": "Your Cup" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

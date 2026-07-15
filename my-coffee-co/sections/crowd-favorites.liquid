@@ -1,0 +1,146 @@
+<section class="mcc-favorites">
+  <div class="mcc-favorites__header reveal">
+    <div>
+      <span class="mcc-favorites__subtitle">{{ section.settings.subtitle }}</span>
+      <h3 class="mcc-favorites__title text-headline-lg-mobile">{{ section.settings.title }}</h3>
+    </div>
+    {% if section.settings.view_all_url != blank %}
+      <a class="mcc-favorites__view-all" href="{{ section.settings.view_all_url }}">VIEW ALL PRODUCTS</a>
+    {% else %}
+      <a class="mcc-favorites__view-all" href="{{ routes.all_products_collection_url }}">VIEW ALL PRODUCTS</a>
+    {% endif %}
+  </div>
+
+  <div class="mcc-favorites__grid hide-scrollbar">
+    {% for block in section.blocks %}
+      <div class="mcc-product-card reveal" style="transition-delay: {{ forloop.index0 | times: 0.1 }}s;" {{ block.shopify_attributes }}>
+        <div class="mcc-product-card__image-wrap">
+          {% if block.settings.image != blank %}
+            {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', alt: block.settings.product_name }}
+          {% else %}
+            <div class="placeholder-svg">
+              {{ 'product-1' | placeholder_svg_tag }}
+            </div>
+          {% endif %}
+
+          <div class="mcc-product-card__add-btn">
+            <span class="material-symbols-outlined">add</span>
+          </div>
+
+          <div class="mcc-product-card__quick-add">
+            <button class="mcc-product-card__quick-add-btn">QUICK ADD TO CART</button>
+          </div>
+        </div>
+
+        <div class="mcc-product-card__info">
+          <div>
+            <p class="mcc-product-card__type">{{ block.settings.product_type }}</p>
+            <h4 class="mcc-product-card__name">{{ block.settings.product_name }}</h4>
+          </div>
+          <div class="mcc-product-card__price-wrap">
+            {% if block.settings.compare_price != blank %}
+              <span class="mcc-product-card__compare-price">{{ block.settings.compare_price }}</span>
+            {% endif %}
+            <span class="mcc-product-card__price">{{ block.settings.price }}</span>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Crowd Favorites",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "The Classics"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "CROWD FAVORITES"
+    },
+    {
+      "type": "url",
+      "id": "view_all_url",
+      "label": "View All Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_card",
+      "name": "Product Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Product Image"
+        },
+        {
+          "type": "text",
+          "id": "product_name",
+          "label": "Product Name",
+          "default": "WASHED VALLEY"
+        },
+        {
+          "type": "text",
+          "id": "product_type",
+          "label": "Flavor / Type",
+          "default": "Medium Roast"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price",
+          "default": "Rs. 375"
+        },
+        {
+          "type": "text",
+          "id": "compare_price",
+          "label": "Compare at Price (optional)",
+          "default": "Rs. 475"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Crowd Favorites",
+      "blocks": [
+        {
+          "type": "product_card",
+          "settings": {
+            "product_name": "WASHED VALLEY",
+            "product_type": "Medium Roast",
+            "price": "Rs. 375",
+            "compare_price": "Rs. 475"
+          }
+        },
+        {
+          "type": "product_card",
+          "settings": {
+            "product_name": "AMBER BLEND",
+            "product_type": "Dark Chocolate, Roasted Nuts",
+            "price": "Rs. 285",
+            "compare_price": "Rs. 350"
+          }
+        },
+        {
+          "type": "product_card",
+          "settings": {
+            "product_name": "CLASSIC POUR OVER",
+            "product_type": "Smooth, Floral",
+            "price": "Rs. 320",
+            "compare_price": ""
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

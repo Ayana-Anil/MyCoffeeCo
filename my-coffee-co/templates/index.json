@@ -1,0 +1,167 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "line_1": "YOUR LOCAL",
+        "line_2": "COFFEE",
+        "line_3": "DEALER",
+        "cta_text": "Start Your Order"
+      }
+    },
+    "social-proof": {
+      "type": "social-proof-marquee",
+      "blocks": {
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "icon": "group",
+            "text": "10,000+ HAPPY CUSTOMERS"
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "icon": "star",
+            "text": "4.9/5 STAR RATING"
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "icon": "eco",
+            "text": "ECO-FRIENDLY SOURCING"
+          }
+        }
+      },
+      "block_order": ["item_1", "item_2", "item_3"],
+      "settings": {}
+    },
+    "favorites": {
+      "type": "crowd-favorites",
+      "blocks": {
+        "product_1": {
+          "type": "product_card",
+          "settings": {
+            "product_name": "WASHED VALLEY",
+            "product_type": "Medium Roast",
+            "price": "Rs. 375",
+            "compare_price": "Rs. 475"
+          }
+        },
+        "product_2": {
+          "type": "product_card",
+          "settings": {
+            "product_name": "AMBER BLEND",
+            "product_type": "Dark Chocolate, Roasted Nuts",
+            "price": "Rs. 285",
+            "compare_price": "Rs. 350"
+          }
+        },
+        "product_3": {
+          "type": "product_card",
+          "settings": {
+            "product_name": "CLASSIC POUR OVER",
+            "product_type": "Smooth, Floral",
+            "price": "Rs. 320",
+            "compare_price": ""
+          }
+        }
+      },
+      "block_order": ["product_1", "product_2", "product_3"],
+      "settings": {
+        "subtitle": "The Classics",
+        "title": "CROWD FAVORITES"
+      }
+    },
+    "collage": {
+      "type": "ambiance-collage",
+      "settings": {
+        "title": "VISIT THE SOURCE",
+        "subtitle": "Experience the meticulous craft of brewing in our flagship London workshop. Pure aesthetics, premium beans."
+      }
+    },
+    "journey": {
+      "type": "our-journey",
+      "blocks": {
+        "marker_1": {
+          "type": "marker",
+          "settings": { "label": "Farm" }
+        },
+        "marker_2": {
+          "type": "marker",
+          "settings": { "label": "Roastery" }
+        },
+        "marker_3": {
+          "type": "marker",
+          "settings": { "label": "Logistics" }
+        },
+        "marker_4": {
+          "type": "marker",
+          "settings": { "label": "Your Cup" }
+        }
+      },
+      "block_order": ["marker_1", "marker_2", "marker_3", "marker_4"],
+      "settings": {
+        "label": "Traceability",
+        "title": "OUR JOURNEY",
+        "body_text": "From the high-altitude farms of Colombia to our precision roasting facility in London, we maintain a direct line of quality.",
+        "body_text_2": "Every bean is tracked, every roast profile is documented, and every cup is an honest reflection of its origin. No middlemen, no compromise.",
+        "stat_1_value": "100%",
+        "stat_1_label": "DIRECT TRADE",
+        "stat_2_value": "SINGLE",
+        "stat_2_label": "ORIGIN ONLY"
+      }
+    },
+    "reviews": {
+      "type": "reviews",
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "quote": "The cleanest pour-over I've ever had. Their equipment is just as high-quality as the beans.",
+            "author": "JAMES W., DESIGNER",
+            "rating": 5
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "quote": "Finally an instant coffee that doesn't taste like burnt paper. Aurora is a game changer for mornings.",
+            "author": "SARAH L., ARCHITECT",
+            "rating": 5
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "quote": "Obsessed with the branding and even more obsessed with the roast. Colombia Huila is my go-to.",
+            "author": "MARCUS T., CREATIVE DIRECTOR",
+            "rating": 5
+          }
+        }
+      },
+      "block_order": ["review_1", "review_2", "review_3"],
+      "settings": {
+        "title": "THE VERDICT"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "social-proof",
+    "favorites",
+    "collage",
+    "journey",
+    "reviews"
+  ]
+}

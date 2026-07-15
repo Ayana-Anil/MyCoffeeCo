@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;family=Montserrat:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        try {
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        "colors": {
+                            "on-tertiary-container": "#ffa899",
+                            "on-tertiary": "#ffffff",
+                            "primary-container": "#0a06ff",
+                            "on-error": "#ffffff",
+                            "surface-dim": "#dadada",
+                            "on-surface-variant": "#454558",
+                            "tertiary": "#730400",
+                            "error": "#ba1a1a",
+                            "primary-fixed": "#e0e0ff",
+                            "surface-container-high": "#e8e8e8",
+                            "primary-fixed-dim": "#bfc2ff",
+                            "tertiary-fixed-dim": "#ffb4a7",
+                            "tertiary-container": "#9e0700",
+                            "secondary": "#5e5e5e",
+                            "secondary-container": "#e2e2e2",
+                            "outline-variant": "#c5c4db",
+                            "on-primary-fixed": "#01006e",
+                            "surface-bright": "#f9f9f9",
+                            "surface-tint": "#353cff",
+                            "error-container": "#ffdad6",
+                            "surface-variant": "#e2e2e2",
+                            "outline": "#757589",
+                            "on-error-container": "#93000a",
+                            "on-tertiary-fixed-variant": "#920600",
+                            "on-surface": "#1a1c1c",
+                            "secondary-fixed": "#e2e2e2",
+                            "secondary-fixed-dim": "#c6c6c6",
+                            "on-secondary": "#ffffff",
+                            "tertiary-fixed": "#ffdad4",
+                            "surface-container-low": "#f3f3f4",
+                            "surface-container-lowest": "#ffffff",
+                            "surface-container": "#eeeeee",
+                            "on-primary": "#ffffff",
+                            "on-primary-fixed-variant": "#0500ef",
+                            "on-background": "#1a1c1c",
+                            "on-secondary-container": "#646464",
+                            "inverse-primary": "#bfc2ff",
+                            "on-primary-container": "#b5b9ff",
+                            "on-secondary-fixed": "#1b1b1b",
+                            "inverse-on-surface": "#f0f1f1",
+                            "surface-container-highest": "#e2e2e2",
+                            "inverse-surface": "#2f3131",
+                            "on-tertiary-fixed": "#400100",
+                            "on-secondary-fixed-variant": "#474747",
+                            "surface": "#f9f9f9",
+                            "background": "#f9f9f9",
+                            "primary": "#0300be"
+                        },
+                        "borderRadius": {
+                            "DEFAULT": "0px",
+                            "lg": "0px",
+                            "xl": "0px",
+                            "full": "9999px"
+                        },
+                        "spacing": {
+                            "margin-mobile": "20px",
+                            "stack-lg": "80px",
+                            "stack-sm": "16px",
+                            "container-max": "1440px",
+                            "gutter": "24px",
+                            "base": "8px",
+                            "margin-desktop": "64px",
+                            "stack-md": "40px"
+                        },
+                        "fontFamily": {
+                            "label-sm": ["Inter"],
+                            "headline-lg": ["Montserrat"],
+                            "headline-md": ["Montserrat"],
+                            "headline-lg-mobile": ["Montserrat"],
+                            "body-lg": ["Inter"],
+                            "label-bold": ["Inter"],
+                            "display-xl": ["Montserrat"],
+                            "body-md": ["Inter"]
+                        },
+                        "fontSize": {
+                            "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                            "headline-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                            "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                            "headline-lg-mobile": ["32px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                            "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                            "label-bold": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                            "display-xl": ["80px", {"lineHeight": "1.0", "letterSpacing": "-0.04em", "fontWeight": "800"}],
+                            "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                        }
+                    },
+                },
+            }
+        } catch (_e) {}
+    </script>
+<style>
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            animation: marquee 20s linear infinite;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: transform, opacity;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .marker {
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .marker.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .type-target::after {
+            content: '|';
+            animation: blink 0.7s infinite;
+            margin-left: 2px;
+            font-weight: 300;
+        }
+        .type-target.done::after {
+            display: none;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md overflow-x-hidden">
+<svg aria-hidden="true" class="inline-defs-container" style="position:absolute;width:0;height:0;overflow:hidden"></svg>
+<!-- TopAppBar -->
+<header class="w-full sticky top-0 z-50 bg-surface border-b-2 border-on-surface transition-all duration-300">
+<nav class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer hover:rotate-90 transition-transform duration-300">menu</span>
+<h1 class="font-headline-md text-headline-md font-bold text-primary tracking-tight cursor-default select-none">MY COFFEE CO.</h1>
+</div>
+<div class="hidden md:flex items-center gap-gutter">
+<a class="text-primary font-bold border-b-2 border-primary font-label-bold text-label-bold" href="#">SHOP</a>
+<a class="text-on-surface font-label-bold text-label-bold hover:text-primary transition-colors duration-200" href="#">LOCATIONS</a>
+<a class="text-on-surface font-label-bold text-label-bold hover:text-primary transition-colors duration-200" href="#">OUR STORY</a>
+</div>
+<div class="flex items-center">
+<button class="relative group">
+<span class="material-symbols-outlined text-primary cursor-pointer text-[28px] group-hover:scale-110 transition-transform duration-200" data-original-icon="shopping_cart">shopping_cart</span>
+<span class="absolute -top-1 -right-1 bg-tertiary text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">0</span>
+</button>
+</div>
+</nav>
+</header>
+<!-- Hero Section -->
+<section class="bg-primary-container text-white py-stack-lg px-margin-mobile overflow-hidden relative">
+<div class="max-w-container-max mx-auto relative z-10">
+<h2 class="font-display-xl text-[60px] md:text-display-xl leading-none uppercase italic opacity-90 mb-4 min-h-[1.2em] flex items-center">
+<span class="type-target" data-text="YOUR LOCAL"></span>
+</h2>
+<h2 class="font-display-xl text-[72px] md:text-[120px] leading-none min-h-[1.2em] flex items-center">
+<span class="type-target" data-text="COFFEE"></span>
+</h2>
+<h2 class="font-display-xl text-[64px] md:text-display-xl leading-none text-right min-h-[1.2em] flex items-center justify-end">
+<span class="type-target" data-text="DEALER"></span>
+</h2>
+<div class="mt-stack-md flex justify-end">
+<button class="bg-white text-primary px-10 py-6 font-label-bold text-label-bold uppercase transition-all hover:bg-on-primary hover:shadow-[8px_8px_0px_#01006e] active:scale-95">
+                    Start Your Order
+                </button>
+</div>
+</div>
+</section>
+<!-- Social Proof Strip -->
+<div class="bg-white border-y-2 border-on-surface py-4 overflow-hidden">
+<div class="flex whitespace-nowrap animate-marquee gap-gutter">
+<div class="flex items-center gap-2 font-label-bold text-label-bold text-primary px-4 cursor-default">
+<span class="material-symbols-outlined">group</span> 10,000+ HAPPY CUSTOMERS
+            </div>
+<div class="flex items-center gap-2 font-label-bold text-label-bold text-primary px-4 cursor-default">
+<span class="material-symbols-outlined">star</span> 4.9/5 STAR RATING
+            </div>
+<div class="flex items-center gap-2 font-label-bold text-label-bold text-primary px-4 cursor-default">
+<span class="material-symbols-outlined">eco</span> ECO-FRIENDLY SOURCING
+            </div>
+<!-- Duplicate for Marquee -->
+<div class="flex items-center gap-2 font-label-bold text-label-bold text-primary px-4 cursor-default">
+<span class="material-symbols-outlined">group</span> 10,000+ HAPPY CUSTOMERS
+            </div>
+<div class="flex items-center gap-2 font-label-bold text-label-bold text-primary px-4 cursor-default">
+<span class="material-symbols-outlined">star</span> 4.9/5 STAR RATING
+            </div>
+<div class="flex items-center gap-2 font-label-bold text-label-bold text-primary px-4 cursor-default">
+<span class="material-symbols-outlined">eco</span> ECO-FRIENDLY SOURCING
+            </div>
+</div>
+</div>
+<!-- Crowd Favorite Catalog -->
+<section class="py-stack-lg px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto bg-background">
+<div class="flex justify-between items-end mb-stack-md reveal">
+<div class="min-w-[300px] md:min-w-[400px]">
+<span class="text-primary font-label-bold text-label-bold uppercase tracking-widest block mb-2">The Classics</span>
+<h3 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg uppercase">CROWD FAVORITES</h3>
+</div>
+<a class="hidden md:block font-label-bold text-label-bold border-b-2 border-on-surface hover:text-primary hover:border-primary transition-all duration-300" href="#">VIEW ALL PRODUCTS</a>
+</div>
+<div class="flex overflow-x-auto hide-scrollbar gap-gutter pb-4">
+<!-- Product Card 1: WASHED VALLEY -->
+<div class="group cursor-pointer min-w-[300px] md:min-w-[400px] reveal">
+<div class="aspect-[4/5] overflow-hidden bg-surface-container mb-4 relative border-2 border-transparent group-hover:border-primary transition-all duration-300">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAf1cB52nFPVDuSzvCXHUfAgkK96C7uZcpfVuW7jFeZDTCZ8ywHN13RYj6C3Q_eogePAHlzhapRkfADxEUcOiC0CaM180axXoSDbwh2krEqgPaSMfd3uSMlfzQlMMtYSfusNN4AR3HKyjdk9YJsJxfT8K79_a_WCtXCkX8ZYXNvkj_A_NI906n88OT6EUQFagMiGlpNazNW-VClvFpOMzu6Vp8OxbOteUzHMeENAOX_D0PFr6fug1MnbX_4NOgUnvnbNIYP7S9-McJ3vw" style="object-position: 0% center;"/>
+<div class="absolute top-4 right-4 z-10">
+<button class="bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg active:scale-90 transition-transform duration-200 hover:rotate-90">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-primary/90 backdrop-blur-sm">
+<button class="w-full text-white py-4 font-label-bold text-label-bold uppercase">QUICK ADD TO CART</button>
+</div>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<p class="font-label-bold text-label-bold uppercase text-secondary">Medium Roast</p>
+<h4 class="font-headline-md text-headline-md group-hover:text-primary transition-colors">WASHED VALLEY</h4>
+</div>
+<div class="text-right">
+<span class="block text-secondary line-through text-label-sm">Rs. 475</span>
+<span class="font-label-bold text-label-bold text-primary">Rs. 375</span>
+</div>
+</div>
+</div>
+<!-- Product Card 2: AMBER BLEND -->
+<div class="group cursor-pointer min-w-[300px] md:min-w-[400px] reveal" style="transition-delay: 0.1s;">
+<div class="aspect-[4/5] overflow-hidden bg-surface-container mb-4 relative border-2 border-transparent group-hover:border-primary transition-all duration-300">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBokPUMXOomPVNc3t-mcoLKNPM0inEIteSEzUx05IVEk03-f06dHTNuLuekdVQgiwZAkekNTF5xVtgABsU7zrL_vYZjTUOU0Ii3oCPOapt62nX8VfEPUreycMgM2wMKZo00pUhcsh-GEterPi_l6MZVlufrEC1Eoy_I4u65J5uu7zCWgoimY31VlYB8bHmdidpQj12y-kFzAscjljuyijriqlIrbio3nJ2Lzi8KK-H7Csg-0Vdgic9Aq1viu5A0Lw1hQw8GEC0hv32-BQ" style="object-position: 50% center;"/>
+<div class="absolute top-4 right-4 z-10">
+<button class="bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg active:scale-90 transition-transform duration-200 hover:rotate-90">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-primary/90 backdrop-blur-sm">
+<button class="w-full text-white py-4 font-label-bold text-label-bold uppercase">QUICK ADD TO CART</button>
+</div>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<p class="font-label-bold text-label-bold uppercase text-secondary">Dark Chocolate, Roasted Nuts</p>
+<h4 class="font-headline-md text-headline-md group-hover:text-primary transition-colors">AMBER BLEND</h4>
+</div>
+<div class="text-right">
+<span class="block text-secondary line-through text-label-sm">Rs. 350</span>
+<span class="font-label-bold text-label-bold text-primary">Rs. 285</span>
+</div>
+</div>
+</div>
+<!-- Product Card 3: CLASSIC POUR OVER -->
+<div class="group cursor-pointer min-w-[300px] md:min-w-[400px] reveal" style="transition-delay: 0.2s;">
+<div class="aspect-[4/5] overflow-hidden bg-surface-container mb-4 relative border-2 border-transparent group-hover:border-primary transition-all duration-300">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4AxZWJOefKCYHIKHSVgNu8uQhMk58MbMURrTZy7xdbykW0Xb8xt_Fotjv04lUFwqsmcJ9YecS5iSPh10zMFgpiB4YWXP21ttPtA3yDXbR1HsQp2U-xBnPDJntUxVlre_kCVV_U_URc0VVWlU1A0tVDHZ0baXC4oSYKDh40E4E0gyPtet_gJDzNjbKwq8rxqP_fiKnsdtWqrIiiKqpsQ5fSMERMuWFRDsJKkbnKgKG_w818ffSfy3uIOq6_Hus6L_uiCi9gy0_g7O-XQ" style="object-position: 100% center;"/>
+<div class="absolute top-4 right-4 z-10">
+<button class="bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg active:scale-90 transition-transform duration-200 hover:rotate-90">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-primary/90 backdrop-blur-sm">
+<button class="w-full text-white py-4 font-label-bold text-label-bold uppercase">QUICK ADD TO CART</button>
+</div>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<p class="font-label-bold text-label-bold uppercase text-secondary">Smooth, Floral</p>
+<h4 class="font-headline-md text-headline-md group-hover:text-primary transition-colors">CLASSIC POUR OVER</h4>
+</div>
+<div class="text-right">
+<span class="font-label-bold text-label-bold text-primary">Rs. 320</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Ambiance Collage -->
+<section class="py-stack-lg bg-surface-container-low border-y-2 border-on-surface">
+<div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="mb-stack-md text-center reveal">
+<h3 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg uppercase italic">VISIT THE SOURCE</h3>
+<p class="text-secondary max-w-xl mx-auto font-body-md">Experience the meticulous craft of brewing in our flagship London workshop. Pure aesthetics, premium beans.</p>
+</div>
+<div class="grid grid-cols-12 gap-4 md:gap-gutter">
+<div class="col-span-6 md:col-span-3 h-[300px] md:h-[450px] flex flex-col gap-4 reveal">
+<div class="h-1/2 overflow-hidden border-2 border-on-surface group cursor-pointer">
+<img alt="Coffee Shop Counter" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida/AP1WRLs8c6zuSytV5NkF7QqXCB0E-e1LFOR2tnN24BdcLljVgGJWSSxDzJFsEwrauuISQ7eq5Uh8IyQ5Eg8d2HkhBVAA6kR86HbGR9nu8sRUeQQxFWRShzQQCIfoJL332PIamGVPRhCAcitHYUYkvynuYWxzft5OHUIdIFhvqoEYSLdgDmoM2Xkdcoj_8Jp3RO9DIjPnAoa4LAWhbCmbyN7s2xC55yo9o9fQgG4PXUz4Q6abroVR4UeXv9lUi6A"/>
+</div>
+<div class="h-1/2 overflow-hidden border-2 border-on-surface group cursor-pointer">
+<img alt="Latte Art" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida/AP1WRLsvz84KpKNifXSE-ThQCVqjujUPPK6QHKB1hLhEa4nG-Tsu43cq7gwBBESBHlkXWgcV0A-3iulUTcb5CJB08zFcPFrrczTG7MFtNqp5LD5APLcvnydUDL2WSXBsdJN5p52U6OtAUrxg_YTMtPjqji2oiYJPPzqiXLnr8z8CRWkSAJ5huTfv5X84IHcaDcB1tI8fi3xtd8MewPwjpeVTXqcF5VpbQFgj9-cLq5BlrPstF9iPPz5L7-Dm1KI"/>
+</div>
+</div>
+<div class="col-span-6 md:col-span-3 h-[300px] md:h-[450px] overflow-hidden border-2 border-on-surface group cursor-pointer reveal" style="transition-delay: 0.1s;">
+<img alt="Coffee Equipment" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBN0189ApHx22Odq3di7exv6e_VcdE1_CBfPwUpEC4H_e2hMvDYN2zKZvpHghOcwTlv-FEyjpbYIefcb35sXmLhPXZhbIC38DOycqZCGvi1xenLpu3Aww7rzHvjWzyoBbV2NXWNZspNdFAHqvRXvgGmMJ47nD-QFx9w-P4zXkWcNcUFc3QtneU7tFxnusrT2ZyG5sbTKUgOoRbc3oEc5hk-DuU65FLhp3Ej6_7fYB-blzQjQvm4QUMnyPm_I2jASX1BfLE6-dZdcpZ-Sw"/>
+</div>
+<div class="col-span-6 md:col-span-3 h-[200px] md:h-[250px] overflow-hidden border-2 border-on-surface group cursor-pointer reveal" style="transition-delay: 0.2s;"><img alt="Cozy minimalist coffee shop interior" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBszX6eBq7nwQ_g33af5EdLCZ11FH_aH8Ck3nWZNzPym0QggdI7HM5QivHecvOVbsZPtcjb8NQgUyyOdw9VAMk1a6LQi3xe4sjE4LN8IGSsSqmozoOC8FCQXN0xwp5tpPssDc7kYnc53ufdK1DXj1C0lLaG_JemhEbrz5kKpxc5LHEPYXZ7IdOh8U5k5P_ldqRMAdrMRfl8ASoQkySC6yZ7RH9lpf-1-OunwzzAw8haSKxJzLyaLyfyB0S6SLW1AX3Lhzy9IipZvtIjZw"/></div>
+<div class="col-span-6 md:col-span-3 h-[200px] md:h-[250px] overflow-hidden border-2 border-on-surface group cursor-pointer reveal" style="transition-delay: 0.3s;"><img alt="Modern coffee shop counter" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsIHv4luXppCoae9nw3KaDpkKt8m9Yq2atlb1QecLHcjTI7ECPJPiQ2uf-KUoOqViMBfWRxKFXaxNJNyxwqPuZQQJJIvZl-2JsNzl5Gn9zPjn337KhsgKK1g3u3zfDs5omyvPG-X1TMisc8tA1wCHK-MWOnLbjihoh5Ra59R54b4Y_YAbiTtKVwAb9qhH8FgNF4_fYsy5SbCFDLdWzRfnw-C2ZENesYs54W2o4SSzCecgWx2cU11cQYijZzYpykmpWxhKWJMHNnQ72kg"/></div>
+<div class="col-span-12 md:col-span-6 h-[200px] md:h-[250px] overflow-hidden border-2 border-on-surface group cursor-pointer reveal" style="transition-delay: 0.4s;"><img alt="Aesthetic latte art" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUHkObR6qEhmo3JiER1dHU0JK-SMHVtdaYG6zaWMaQ9OrU9arhNnUwbMBBsTl3dTJTj1UKRw4a0XzuDliWde58BwqI70KU5OFaFXJX9dgGyCtZ2whTjrlZi-t3ajTyKgr-0ADj9p0jMZ2wqSENetlBuQoUpUDxg2mVk07Ep9rULiOzpx81FLIhxbmQ8R26XDxNUH0WAzogg6-HLPi8WMTSOyvjXM3467OLmWHPaqwE1syj73kFTyOSn6dIpWlsbZ90gavwkUJ0XKST9Q"/></div>
+</div>
+</div>
+</section>
+<!-- Production Map Section -->
+<section class="py-stack-lg px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto bg-background" id="journey-section">
+<div class="flex flex-col md:flex-row items-center gap-stack-lg">
+<div class="w-full md:w-1/2 order-2 md:order-1 min-w-[300px] md:min-w-[400px] flex flex-col items-center">
+<!-- Animated Journey SVG -->
+<div class="w-full max-w-md relative">
+<svg class="w-full h-auto overflow-visible" fill="none" viewbox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<filter height="200%" id="glow" width="200%" x="-50%" y="-50%">
+<fegaussianblur result="blur" stddeviation="6"></fegaussianblur>
+<fecomposite in="SourceGraphic" in2="blur" operator="over"></fecomposite>
+</filter>
+</defs>
+<!-- The Journey-->
+<path d="M40 160C80 160 100 80 140 80C180 80 220 180 260 140C300 100 320 80 360 80" id="journey-path" stroke="#0a06ff" stroke-linecap="round" stroke-width="4" style="filter: url(#glow); transition: stroke-dashoffset 3s cubic-bezier(0.4, 0, 0.2, 1);"></path>
+<!-- Journey Markers -->
+<g class="marker" id="marker-0">
+<circle cx="40" cy="160" fill="#1a1c1c" r="8" stroke="#fff" stroke-width="2"></circle>
+<text fill="#1a1c1c" font-family="Montserrat" font-size="10" font-weight="700" text-anchor="middle" x="40" y="185">Farm</text>
+</g>
+<g class="marker" id="marker-1">
+<circle cx="140" cy="80" fill="#1a1c1c" r="8" stroke="#fff" stroke-width="2"></circle>
+<text fill="#1a1c1c" font-family="Montserrat" font-size="10" font-weight="700" text-anchor="middle" x="140" y="105">Roastery</text>
+</g>
+<g class="marker" id="marker-2">
+<circle cx="260" cy="140" fill="#1a1c1c" r="8" stroke="#fff" stroke-width="2"></circle>
+<text fill="#1a1c1c" font-family="Montserrat" font-size="10" font-weight="700" text-anchor="middle" x="260" y="165">Logistics</text>
+</g>
+<g class="marker" id="marker-3">
+<circle cx="360" cy="80" fill="#1a1c1c" r="8" stroke="#fff" stroke-width="2"></circle>
+<text fill="#1a1c1c" font-family="Montserrat" font-size="10" font-weight="700" text-anchor="middle" x="360" y="105">Your Cup</text>
+</g>
+</svg>
+</div>
+</div>
+<div class="w-full md:w-1/2 order-1 md:order-2 min-w-[300px] md:min-w-[400px] reveal">
+<span class="text-primary font-label-bold text-label-bold uppercase tracking-widest block mb-4">Traceability</span>
+<h3 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg uppercase mb-6">OUR JOURNEY</h3>
+<p class="font-body-lg text-body-lg mb-base">From the high-altitude farms of Colombia to our precision roasting facility in London, we maintain a direct line of quality.</p>
+<p class="text-secondary font-body-md mb-stack-md">Every bean is tracked, every roast profile is documented, and every cup is an honest reflection of its origin. No middlemen, no compromise.</p>
+<div class="grid grid-cols-2 gap-gutter border-t-2 border-on-surface pt-stack-md">
+<div class="hover:translate-x-2 transition-transform duration-300">
+<h5 class="font-headline-md text-headline-md mb-2">100%</h5>
+<p class="font-label-bold text-label-bold text-secondary uppercase">DIRECT TRADE</p>
+</div>
+<div class="hover:translate-x-2 transition-transform duration-300">
+<h5 class="font-headline-md text-headline-md mb-2">SINGLE</h5>
+<p class="font-label-bold text-label-bold text-secondary uppercase">ORIGIN ONLY</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Reviews Section -->
+<section class="bg-on-surface text-white py-stack-lg px-margin-mobile">
+<div class="max-w-container-max mx-auto">
+<div class="text-center mb-stack-md reveal">
+<h3 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg uppercase italic">THE VERDICT</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="reveal border-2 border-surface-variant p-stack-sm h-full flex flex-col justify-between hover:bg-white hover:text-on-surface transition-all duration-300 group">
+<div>
+<div class="flex gap-1 mb-4">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform delay-75" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform delay-100" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform delay-150" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform delay-200" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-lg mb-stack-sm">"The cleanest pour-over I've ever had. Their equipment is just as high-quality as the beans."</p>
+</div>
+<p class="font-label-bold text-label-bold uppercase">— JAMES W., DESIGNER</p>
+</div>
+<div class="reveal border-2 border-surface-variant p-stack-sm h-full flex flex-col justify-between hover:bg-white hover:text-on-surface transition-all duration-300 group" style="transition-delay: 0.15s;">
+<div>
+<div class="flex gap-1 mb-4">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform delay-75" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform delay-100" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform delay-150" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform delay-200" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-lg mb-stack-sm">"Finally an instant coffee that doesn't taste like burnt paper. Aurora is a game changer for mornings."</p>
+</div>
+<p class="font-label-bold text-label-bold uppercase">— SARAH L., ARCHITECT</p>
+</div>
+<div class="reveal border-2 border-surface-variant p-stack-sm h-full flex flex-col justify-between hover:bg-white hover:text-on-surface transition-all duration-300 group" style="transition-delay: 0.3s;">
+<div>
+<div class="flex gap-1 mb-4">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform delay-75" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform delay-100" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform delay-150" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform delay-200" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-lg mb-stack-sm">"Obsessed with the branding and even more obsessed with the roast. Colombia Huila is my go-to."</p>
+</div>
+<p class="font-label-bold text-label-bold uppercase">— MARCUS T., CREATIVE DIRECTOR</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="w-full bg-surface border-t-2 border-on-surface">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center px-margin-mobile md:px-margin-desktop py-stack-md gap-gutter max-w-container-max mx-auto">
+<div class="flex flex-col gap-4">
+<h2 class="font-headline-md text-headline-md text-on-surface font-bold tracking-tight select-none">MY COFFEE CO.</h2>
+<p class="font-label-bold text-label-bold text-secondary">
+                    123 BREW LANE, COFFEE QUARTER, LONDON<br/>
+                    OPEN DAILY: 07:00 — 19:00
+                </p>
+</div>
+<div class="flex flex-wrap gap-stack-sm md:gap-gutter">
+<a class="text-on-surface font-label-bold text-label-bold hover:text-primary transition-colors" href="#">LOCATIONS</a>
+<a class="text-on-surface font-label-bold text-label-bold hover:text-primary transition-colors" href="#">BREW GUIDES</a>
+<a class="text-on-surface font-label-bold text-label-bold hover:text-primary transition-colors" href="#">WHOLESALE</a>
+<a class="text-on-surface font-label-bold text-label-bold hover:text-primary transition-colors" href="#">PRIVACY</a>
+</div>
+<div class="w-full md:w-auto text-right md:text-left mt-stack-sm md:mt-0">
+<p class="text-secondary font-label-bold text-label-bold">© 2024 MY COFFEE CO. ALL RIGHTS RESERVED.</p>
+</div>
+</div>
+</footer>
+<script>
+        // Typing Effect Logic
+        async function typeEffect() {
+            const targets = Array.from(document.querySelectorAll('.type-target'));
+            const typingSpeed = 50; 
+            const pauseBetweenWords = 150;
+            
+            for (const target of targets) {
+                const fullText = target.getAttribute('data-text');
+                if (!fullText) continue;
+                
+                target.textContent = '';
+                
+                for (let i = 0; i <= fullText.length; i++) {
+                    target.textContent = fullText.substring(0, i);
+                    await new Promise(resolve => setTimeout(resolve, typingSpeed));
+                }
+                
+                target.classList.add('done');
+                await new Promise(resolve => setTimeout(resolve, pauseBetweenWords));
+            }
+        }
+
+        // SVG Animation Logic
+        function initJourneyAnimation() {
+            const path = document.getElementById('journey-path');
+            const markers = document.querySelectorAll('.marker');
+            const section = document.getElementById('journey-section');
+            
+            if (!path || !section) return;
+
+            const length = path.getTotalLength();
+            path.style.strokeDasharray = length;
+            path.style.strokeDashoffset = length;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        path.style.strokeDashoffset = '0';
+                        
+                        const markerTimings = [200, 1000, 2000, 2800];
+                        markers.forEach((marker, index) => {
+                            setTimeout(() => {
+                                marker.classList.add('active');
+                            }, markerTimings[index]);
+                        });
+
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            observer.observe(section);
+        }
+
+        // Scroll Reveal Logic
+        function initScrollReveals() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // No need to unobserve if we want them to re-trigger, 
+                        // but usually better for performance to unobserve.
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { 
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px' // Trigger slightly before it hits the viewport fully
+            });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }
+
+        // Initialize everything
+        window.addEventListener('DOMContentLoaded', () => {
+            typeEffect();
+            initJourneyAnimation();
+            initScrollReveals();
+        });
+    </script>
+</body></html>

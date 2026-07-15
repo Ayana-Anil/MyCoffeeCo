@@ -1,0 +1,51 @@
+<div class="mcc-marquee">
+  <div class="mcc-marquee__track">
+    {%- comment -%} Render items twice for seamless loop {%- endcomment -%}
+    {% for pass in (1..2) %}
+      {% for block in section.blocks %}
+        <div class="mcc-marquee__item" {{ block.shopify_attributes }}>
+          <span class="material-symbols-outlined">{{ block.settings.icon }}</span>
+          {{ block.settings.text }}
+        </div>
+      {% endfor %}
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Social Proof Marquee",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Marquee Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Material Icon Name",
+          "default": "star",
+          "info": "Use a [Material Symbol](https://fonts.google.com/icons) name."
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "4.9/5 STAR RATING"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Social Proof Marquee",
+      "blocks": [
+        { "type": "item", "settings": { "icon": "group", "text": "10,000+ HAPPY CUSTOMERS" } },
+        { "type": "item", "settings": { "icon": "star", "text": "4.9/5 STAR RATING" } },
+        { "type": "item", "settings": { "icon": "eco", "text": "ECO-FRIENDLY SOURCING" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

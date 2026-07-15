@@ -1,0 +1,60 @@
+<section class="mcc-hero">
+  <div class="mcc-hero__inner">
+    <h2 class="mcc-hero__line mcc-hero__line--1">
+      <span class="type-target" data-text="{{ section.settings.line_1 }}"></span>
+    </h2>
+    <h2 class="mcc-hero__line mcc-hero__line--2">
+      <span class="type-target" data-text="{{ section.settings.line_2 }}"></span>
+    </h2>
+    <h2 class="mcc-hero__line mcc-hero__line--3">
+      <span class="type-target" data-text="{{ section.settings.line_3 }}"></span>
+    </h2>
+    <div class="mcc-hero__cta-wrap">
+      <a href="{{ section.settings.cta_url | default: routes.all_products_collection_url }}" class="mcc-hero__cta">
+        {{ section.settings.cta_text }}
+      </a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "line_1",
+      "label": "Heading Line 1",
+      "default": "YOUR LOCAL"
+    },
+    {
+      "type": "text",
+      "id": "line_2",
+      "label": "Heading Line 2",
+      "default": "COFFEE"
+    },
+    {
+      "type": "text",
+      "id": "line_3",
+      "label": "Heading Line 3",
+      "default": "DEALER"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button Text",
+      "default": "Start Your Order"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero"
+    }
+  ]
+}
+{% endschema %}

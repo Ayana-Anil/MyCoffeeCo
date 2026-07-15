@@ -1,0 +1,53 @@
+<footer class="mcc-footer">
+  <div class="mcc-footer__inner">
+    <div class="mcc-footer__brand">
+      <h2 class="mcc-footer__title">{{ section.settings.store_name | default: shop.name }}</h2>
+      <p class="mcc-footer__address">
+        {{ section.settings.address_line_1 }}<br>
+        {{ section.settings.address_line_2 }}
+      </p>
+    </div>
+
+    <div class="mcc-footer__links">
+      {% for link in section.settings.menu.links %}
+        <a class="mcc-footer__link" href="{{ link.url }}">{{ link.title | upcase }}</a>
+      {% endfor %}
+    </div>
+
+    <div class="mcc-footer__copyright-wrap">
+      <p class="mcc-footer__copyright">© {{ 'now' | date: '%Y' }} {{ section.settings.store_name | default: shop.name | upcase }}. ALL RIGHTS RESERVED.</p>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "store_name",
+      "label": "Store Name",
+      "default": "MY COFFEE CO."
+    },
+    {
+      "type": "text",
+      "id": "address_line_1",
+      "label": "Address Line 1",
+      "default": "123 BREW LANE, COFFEE QUARTER, LONDON"
+    },
+    {
+      "type": "text",
+      "id": "address_line_2",
+      "label": "Address Line 2",
+      "default": "OPEN DAILY: 07:00 — 19:00"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Footer Menu",
+      "default": "footer"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,122 @@
+<section class="mcc-collage">
+  <div class="mcc-collage__inner">
+    <div class="mcc-collage__header reveal">
+      <h3 class="mcc-collage__title text-headline-lg-mobile">{{ section.settings.title }}</h3>
+      <p class="mcc-collage__subtitle">{{ section.settings.subtitle }}</p>
+    </div>
+
+    <div class="mcc-collage__grid">
+      {%- comment -%} Column 1: Two stacked images {%- endcomment -%}
+      <div class="mcc-collage__col-left reveal">
+        <div class="mcc-collage__item">
+          {% if section.settings.image_1 != blank %}
+            {{ section.settings.image_1 | image_url: width: 600 | image_tag: loading: 'lazy', alt: 'Coffee Shop Counter' }}
+          {% else %}
+            <div class="placeholder-svg">{{ 'lifestyle-1' | placeholder_svg_tag }}</div>
+          {% endif %}
+        </div>
+        <div class="mcc-collage__item">
+          {% if section.settings.image_2 != blank %}
+            {{ section.settings.image_2 | image_url: width: 600 | image_tag: loading: 'lazy', alt: 'Latte Art' }}
+          {% else %}
+            <div class="placeholder-svg">{{ 'lifestyle-2' | placeholder_svg_tag }}</div>
+          {% endif %}
+        </div>
+      </div>
+
+      {%- comment -%} Column 2: Tall single image {%- endcomment -%}
+      <div class="mcc-collage__col-tall mcc-collage__item reveal" style="transition-delay: 0.1s;">
+        {% if section.settings.image_3 != blank %}
+          {{ section.settings.image_3 | image_url: width: 600 | image_tag: loading: 'lazy', alt: 'Coffee Equipment' }}
+        {% else %}
+          <div class="placeholder-svg">{{ 'collection-1' | placeholder_svg_tag }}</div>
+        {% endif %}
+      </div>
+
+      {%- comment -%} Small images row {%- endcomment -%}
+      <div class="mcc-collage__item mcc-collage__item--small reveal" style="transition-delay: 0.2s;">
+        {% if section.settings.image_4 != blank %}
+          {{ section.settings.image_4 | image_url: width: 600 | image_tag: loading: 'lazy', alt: 'Cozy coffee shop interior' }}
+        {% else %}
+          <div class="placeholder-svg">{{ 'collection-2' | placeholder_svg_tag }}</div>
+        {% endif %}
+      </div>
+
+      <div class="mcc-collage__item mcc-collage__item--small reveal" style="transition-delay: 0.3s;">
+        {% if section.settings.image_5 != blank %}
+          {{ section.settings.image_5 | image_url: width: 600 | image_tag: loading: 'lazy', alt: 'Modern coffee shop counter' }}
+        {% else %}
+          <div class="placeholder-svg">{{ 'collection-3' | placeholder_svg_tag }}</div>
+        {% endif %}
+      </div>
+
+      {%- comment -%} Wide image spanning bottom {%- endcomment -%}
+      <div class="mcc-collage__item mcc-collage__item--wide reveal" style="transition-delay: 0.4s;">
+        {% if section.settings.image_6 != blank %}
+          {{ section.settings.image_6 | image_url: width: 1200 | image_tag: loading: 'lazy', alt: 'Aesthetic latte art' }}
+        {% else %}
+          <div class="placeholder-svg">{{ 'collection-4' | placeholder_svg_tag }}</div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ambiance Collage",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "VISIT THE SOURCE"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Experience the meticulous craft of brewing in our flagship London workshop. Pure aesthetics, premium beans."
+    },
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Image 1 (Top Left)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Image 2 (Bottom Left)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Image 3 (Tall Center)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_4",
+      "label": "Image 4 (Small Right Top)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_5",
+      "label": "Image 5 (Small Right Bottom)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_6",
+      "label": "Image 6 (Wide Bottom)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ambiance Collage"
+    }
+  ]
+}
+{% endschema %}

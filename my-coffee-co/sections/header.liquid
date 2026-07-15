@@ -1,0 +1,48 @@
+<header class="mcc-header">
+  <nav class="mcc-header__nav">
+    <div class="mcc-header__left">
+      <span class="material-symbols-outlined mcc-header__menu-icon">menu</span>
+      <h1 class="mcc-header__title">
+        <a href="{{ routes.root_url }}">{{ section.settings.store_name | default: shop.name }}</a>
+      </h1>
+    </div>
+
+    <div class="mcc-header__links">
+      {% for link in section.settings.menu.links %}
+        <a
+          class="mcc-header__link {% if link.active %}mcc-header__link--active{% endif %}"
+          href="{{ link.url }}"
+        >
+          {{ link.title | upcase }}
+        </a>
+      {% endfor %}
+    </div>
+
+    <div class="mcc-header__cart">
+      <a href="{{ routes.cart_url }}">
+        <span class="material-symbols-outlined mcc-header__cart-icon">shopping_cart</span>
+        <span class="mcc-header__cart-badge">{{ cart.item_count }}</span>
+      </a>
+    </div>
+  </nav>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "text",
+      "id": "store_name",
+      "label": "Store Name",
+      "default": "MY COFFEE CO."
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Navigation Menu",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}

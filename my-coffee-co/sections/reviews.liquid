@@ -1,0 +1,98 @@
+<section class="mcc-reviews">
+  <div class="mcc-reviews__inner">
+    <div class="mcc-reviews__header reveal">
+      <h3 class="mcc-reviews__title text-headline-lg-mobile">{{ section.settings.title }}</h3>
+    </div>
+
+    <div class="mcc-reviews__grid">
+      {% for block in section.blocks %}
+        <div class="mcc-review-card reveal" style="transition-delay: {{ forloop.index0 | times: 0.15 }}s;" {{ block.shopify_attributes }}>
+          <div>
+            <div class="mcc-review-card__stars">
+              {% assign stars = block.settings.rating | default: 5 %}
+              {% for i in (1..stars) %}
+                <span class="material-symbols-outlined filled" style="transition-delay: {{ forloop.index0 | times: 75 }}ms;">star</span>
+              {% endfor %}
+            </div>
+            <p class="mcc-review-card__quote">"{{ block.settings.quote }}"</p>
+          </div>
+          <p class="mcc-review-card__author">— {{ block.settings.author }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Reviews",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "THE VERDICT"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Review Quote",
+          "default": "The cleanest pour-over I've ever had. Their equipment is just as high-quality as the beans."
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author",
+          "default": "JAMES W., DESIGNER"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Star Rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "quote": "The cleanest pour-over I've ever had. Their equipment is just as high-quality as the beans.",
+            "author": "JAMES W., DESIGNER",
+            "rating": 5
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "quote": "Finally an instant coffee that doesn't taste like burnt paper. Aurora is a game changer for mornings.",
+            "author": "SARAH L., ARCHITECT",
+            "rating": 5
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "quote": "Obsessed with the branding and even more obsessed with the roast. Colombia Huila is my go-to.",
+            "author": "MARCUS T., CREATIVE DIRECTOR",
+            "rating": 5
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
