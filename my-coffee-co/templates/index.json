@@ -46,6 +46,13 @@
       "block_order": ["item_1", "item_2", "item_3"],
       "settings": {}
     },
+    "what-we-have": {
+      "type": "what-we-have",
+      "settings": {
+        "title": "OUR MENU",
+        "subtitle": "WHAT WE HAVE"
+      }
+    },
     "favorites": {
       "type": "crowd-favorites",
       "blocks": {
@@ -81,6 +88,7 @@
       "settings": {
         "subtitle": "The Classics",
         "title": "CROWD FAVORITES"
+      }
     },
     "journey": {
       "type": "our-journey",
@@ -151,6 +159,7 @@
   "order": [
     "hero",
     "social-proof",
+    "what-we-have",
     "favorites",
     "journey",
     "reviews"

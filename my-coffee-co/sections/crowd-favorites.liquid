@@ -11,9 +11,9 @@
     {% endif %}
   </div>
 
-  <div class="mcc-favorites__grid hide-scrollbar">
+  <div class="mcc-favorites__grid hide-scrollbar reveal">
     {% for block in section.blocks %}
-      <div class="mcc-product-card reveal" style="transition-delay: {{ forloop.index0 | times: 0.1 }}s;" {{ block.shopify_attributes }}>
+      <div class="mcc-product-card" {{ block.shopify_attributes }}>
         <div class="mcc-product-card__image-wrap">
           {% if block.settings.image != blank %}
             {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', alt: block.settings.product_name }}

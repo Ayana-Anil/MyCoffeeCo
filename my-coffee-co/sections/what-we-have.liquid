@@ -1,0 +1,390 @@
+<style>
+  /* ===== WHAT WE HAVE SECTION ===== */
+  .wwh-container {
+      position: relative;
+      min-height: 50vh;
+      overflow: hidden;
+  }
+  @media (min-width: 768px) {
+      .wwh-container {
+          min-height: 60vh;
+      }
+  }
+  .wwh-phase {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 1;
+      transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: auto;
+  }
+  .wwh-phase.wwh-hidden {
+      opacity: 0;
+      pointer-events: none;
+  }
+  .wwh-progress-ring {
+      transform: rotate(-90deg);
+      transform-origin: center;
+  }
+  @keyframes wwh-stir {
+      0% { transform: rotate(0deg); transform-origin: 100px 120px; }
+      50% { transform: rotate(15deg); transform-origin: 100px 120px; }
+      100% { transform: rotate(0deg); transform-origin: 100px 120px; }
+  }
+  .wwh-stir-arm {
+      animation: wwh-stir 1.2s ease-in-out infinite;
+  }
+  .wwh-slide-left {
+      transform: translateX(-120%);
+      opacity: 0;
+      transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.8s ease;
+  }
+  .wwh-slide-left.wwh-active {
+      transform: translateX(0);
+      opacity: 1;
+  }
+  .wwh-slide-right {
+      transform: translateX(120%);
+      opacity: 0;
+      transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.8s ease;
+  }
+  .wwh-slide-right.wwh-active {
+      transform: translateX(0);
+      opacity: 1;
+  }
+  .wwh-slide-up {
+      transform: translateY(60px);
+      opacity: 0;
+      transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s ease;
+  }
+  .wwh-slide-up.wwh-active {
+      transform: translateY(0);
+      opacity: 1;
+  }
+  .wwh-menu-card {
+      transform: translateY(30px);
+      opacity: 0;
+      transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease;
+      border: 2px solid #e2e2e2;
+  }
+  .wwh-menu-card.wwh-active {
+      transform: translateY(0);
+      opacity: 1;
+  }
+  .wwh-menu-card:hover {
+      border-color: var(--color-primary, #0300be);
+      box-shadow: 0 8px 24px rgba(3, 0, 190, 0.12);
+  }
+  @keyframes wwh-float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+  }
+  .wwh-float {
+      animation: wwh-float 3s ease-in-out infinite;
+  }
+</style>
+
+<section class="wwh-container bg-primary" id="wwh-section">
+
+  <!-- PHASE 1: Loading -->
+  <div class="wwh-phase" id="wwh-loading">
+    <div class="flex flex-col items-center">
+      <!-- Coffee cup SVG (top-down view with stirring hand) -->
+      <svg viewBox="0 0 200 200" class="w-28 h-28 md:w-36 md:h-36 wwh-float" fill="none">
+        <!-- Hand/Arm -->
+        <g class="wwh-stir-arm">
+          <path d="M190 25 C175 35 165 55 158 72 C154 82 148 88 142 90" stroke="rgba(255,255,255,0.55)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <path d="M142 90 C138 86 136 80 139 76" stroke="rgba(255,255,255,0.55)" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <path d="M142 90 C146 86 146 80 143 76" stroke="rgba(255,255,255,0.55)" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <!-- Spoon -->
+          <line x1="140" y1="78" x2="112" y2="112" stroke="rgba(255,255,255,0.6)" stroke-width="2.5" stroke-linecap="round"/>
+          <ellipse cx="108" cy="116" rx="5" ry="3" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" fill="none" transform="rotate(-35 108 116)"/>
+        </g>
+        <!-- Cup outer rim -->
+        <circle cx="100" cy="120" r="44" stroke="white" stroke-width="2.5" opacity="0.85"/>
+        <!-- Cup handle -->
+        <path d="M144 112 C158 112 160 132 144 132" stroke="white" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.7"/>
+        <!-- Coffee surface -->
+        <circle cx="100" cy="120" r="36" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+        <!-- Swirl -->
+        <path d="M88 115 Q98 105 108 115 Q98 125 88 115" stroke="rgba(255,255,255,0.25)" stroke-width="1.2" fill="none"/>
+        <path d="M94 120 Q100 113 106 120" stroke="rgba(255,255,255,0.15)" stroke-width="1" fill="none"/>
+      </svg>
+
+      <!-- Percentage directly under coffee cup -->
+      <p id="wwh-percent" class="font-headline-md text-[28px] md:text-headline-md text-white/70 mt-2 tracking-widest">0%</p>
+    </div>
+  </div>
+
+  <!-- PHASE 2: Welcome -->
+  <div class="wwh-phase wwh-hidden" id="wwh-welcome">
+    <div class="w-full h-full relative flex flex-col justify-between px-margin-mobile md:px-margin-desktop py-6 md:py-16">
+      <!-- Top: Welcome Text -->
+      <div class="relative z-10 pt-4 md:pt-16">
+        <h2 class="wwh-slide-left font-headline-lg text-[26px] md:text-[52px] leading-tight text-white font-bold">
+          Welcome to<br/>our coffee
+        </h2>
+        <h2 class="wwh-slide-right font-headline-lg text-[32px] md:text-[64px] leading-tight text-white italic" style="font-family: 'Montserrat', serif;">
+          haven!
+        </h2>
+        <div class="wwh-slide-left mt-2 md:mt-6" style="transition-delay: 0.3s;">
+          <p class="text-white/70 font-body-md text-xs md:text-base">123 Brew Lane, Coffee Quarter<br/>London, EC1A 1BB</p>
+        </div>
+      </div>
+
+      <!-- Bottom Left: Hours + Categories -->
+      <div class="relative z-10 pb-4 md:pb-16">
+        <div class="wwh-slide-left" style="transition-delay: 0.5s;">
+          <p class="text-white/60 font-body-md italic text-xs mb-1" style="font-family: 'Montserrat', sans-serif;">7 am — 8 pm</p>
+          <p class="text-white/80 font-label-bold text-xs md:text-label-bold">Coffee</p>
+          <p class="text-white/80 font-label-bold text-xs md:text-label-bold">Milkshakes</p>
+          <p class="text-white/80 font-label-bold text-xs md:text-label-bold">Desserts</p>
+        </div>
+      </div>
+
+      <!-- Right: Large Coffee Cup SVG -->
+      <div class="wwh-slide-right absolute bottom-0 right-0 w-[55%] md:w-[45%] h-[50%] md:h-[60%] flex items-end justify-end" style="transition-delay: 0.2s;">
+        <svg viewBox="0 0 280 400" class="w-full h-auto max-h-full" fill="none">
+          <!-- Cup body -->
+          <path d="M85 145 L100 365 L180 365 L195 145" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <!-- Cup rim -->
+          <path d="M75 145 Q140 128 205 145" stroke="white" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <!-- Lid -->
+          <path d="M80 137 Q140 122 200 137" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <line x1="118" y1="128" x2="162" y2="128" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <!-- Cup sleeve -->
+          <rect x="95" y="215" width="90" height="50" rx="2" stroke="rgba(255,255,255,0.45)" stroke-width="1.5" fill="none"/>
+          <!-- Swirl decorations -->
+          <path d="M105 190 Q140 180 175 190" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" fill="none"/>
+          <path d="M100 310 Q140 300 180 310" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" fill="none"/>
+          <!-- Coffee splashes -->
+          <ellipse cx="125" cy="95" rx="8" ry="10" fill="white" opacity="0.7"/>
+          <ellipse cx="158" cy="68" rx="10" ry="13" fill="white" opacity="0.6"/>
+          <ellipse cx="140" cy="40" rx="7" ry="9" fill="white" opacity="0.5"/>
+          <ellipse cx="180" cy="52" rx="6" ry="8" fill="white" opacity="0.4"/>
+          <ellipse cx="108" cy="62" rx="5" ry="7" fill="white" opacity="0.5"/>
+          <ellipse cx="192" cy="82" rx="7" ry="9" fill="white" opacity="0.55"/>
+          <ellipse cx="98" cy="108" rx="4" ry="5" fill="white" opacity="0.35"/>
+          <ellipse cx="135" cy="25" rx="5" ry="6" fill="white" opacity="0.3"/>
+        </svg>
+      </div>
+
+      <!-- Next arrow -->
+      <button id="wwh-next-btn" class="wwh-slide-up absolute bottom-8 left-6 w-10 h-10 rounded-full border-2 border-white/60 flex items-center justify-center text-white/70 hover:bg-white/10 transition-all z-20" style="transition-delay: 0.7s;">
+        <span class="material-symbols-outlined text-[20px]">chevron_right</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- PHASE 3: Menu -->
+  <div class="wwh-phase wwh-hidden" id="wwh-menu" style="position: relative; min-height: auto; overflow-y: auto;">
+    <div class="w-full bg-background py-12 md:py-16 px-margin-mobile md:px-margin-desktop">
+      <div class="max-w-container-max mx-auto">
+        <div class="text-center mb-stack-md">
+          <span class="text-primary font-label-bold text-label-bold uppercase tracking-widest block mb-2">{{ section.settings.subtitle }}</span>
+          <h3 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg uppercase text-on-surface">{{ section.settings.title }}</h3>
+        </div>
+        <div class="flex flex-col gap-4 md:gap-6 max-w-2xl mx-auto">
+
+          <!-- Card 1: Classic Pour Over -->
+          <div class="wwh-menu-card flex gap-4 bg-white p-4 rounded-none transition-all duration-300 cursor-pointer">
+            <div class="w-20 h-20 md:w-24 md:h-24 flex-shrink-0 overflow-hidden bg-surface-container">
+              <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAf1cB52nFPVDuSzvCXHUfAgkK96C7uZcpfVuW7jFeZDTCZ8ywHN13RYj6C3Q_eogePAHlzhapRkfADxEUcOiC0CaM180axXoSDbwh2krEqgPaSMfd3uSMlfzQlMMtYSfusNN4AR3HKyjdk9YJsJxfT8K79_a_WCtXCkX8ZYXNvkj_A_NI906n88OT6EUQFagMiGlpNazNW-VClvFpOMzu6Vp8OxbOteUzHMeENAOX_D0PFr6fug1MnbX_4NOgUnvnbNIYP7S9-McJ3vw" alt="Classic Pour Over"/>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h4 class="font-headline-md text-base md:text-lg font-bold text-on-surface uppercase">Classic Pour Over</h4>
+                  <span class="font-label-bold text-sm text-primary">Rs. 500</span>
+                </div>
+                <button class="bg-primary text-white w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 hover:shadow-[0_4px_12px_rgba(3,0,190,0.4)] transition-all">
+                  <span class="material-symbols-outlined text-[16px]">add</span>
+                </button>
+              </div>
+              <p class="text-secondary text-xs md:text-sm mt-2 leading-relaxed line-clamp-2">Crafted from premium Arabica beans, this pour-over delivers a clean, smooth cup with bright aromas and delicate complexity.</p>
+            </div>
+          </div>
+
+          <!-- Card 2: Amber Blend -->
+          <div class="wwh-menu-card flex gap-4 bg-white p-4 rounded-none transition-all duration-300 cursor-pointer">
+            <div class="w-20 h-20 md:w-24 md:h-24 flex-shrink-0 overflow-hidden bg-surface-container">
+              <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBokPUMXOomPVNc3t-mcoLKNPM0inEIteSEzUx05IVEk03-f06dHTNuLuekdVQgiwZAkekNTF5xVtgABsU7zrL_vYZjTUOU0Ii3oCPOapt62nX8VfEPUreycMgM2wMKZo00pUhcsh-GEterPi_l6MZVlufrEC1Eoy_I4u65J5uu7zCWgoimY31VlYB8bHmdidpQj12y-kFzAscjljuyijriqlIrbio3nJ2Lzi8KK-H7Csg-0Vdgic9Aq1viu5A0Lw1hQw8GEC0hv32-BQ" alt="Amber Blend"/>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h4 class="font-headline-md text-base md:text-lg font-bold text-on-surface uppercase">Amber Blend</h4>
+                  <span class="font-label-bold text-sm text-primary">Rs. 285</span>
+                </div>
+                <button class="bg-primary text-white w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 hover:shadow-[0_4px_12px_rgba(3,0,190,0.4)] transition-all">
+                  <span class="material-symbols-outlined text-[16px]">add</span>
+                </button>
+              </div>
+              <p class="text-secondary text-xs md:text-sm mt-2 leading-relaxed line-clamp-2">A balanced fusion of Arabica and Robusta, combining soft floral notes and gentle acidity with rich body and bold depth.</p>
+            </div>
+          </div>
+
+          <!-- Card 3: Harmony Harvest -->
+          <div class="wwh-menu-card flex gap-4 bg-white p-4 rounded-none transition-all duration-300 cursor-pointer">
+            <div class="w-20 h-20 md:w-24 md:h-24 flex-shrink-0 overflow-hidden bg-surface-container">
+              <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4AxZWJOefKCYHIKHSVgNu8uQhMk58MbMURrTZy7xdbykW0Xb8xt_Fotjv04lUFwqsmcJ9YecS5iSPh10zMFgpiB4YWXP21ttPtA3yDXbR1HsQp2U-xBnPDJntUxVlre_kCVV_U_URc0VVWlU1A0tVDHZ0baXC4oSYKDh40E4E0gyPtet_gJDzNjbKwq8rxqP_fiKnsdtWqrIiiKqpsQ5fSMERMuWFRDsJKkbnKgKG_w818ffSfy3uIOq6_Hus6L_uiCi9gy0_g7O-XQ" alt="Harmony Harvest"/>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h4 class="font-headline-md text-base md:text-lg font-bold text-on-surface uppercase">Harmony Harvest</h4>
+                  <span class="font-label-bold text-sm text-primary">Rs. 335</span>
+                </div>
+                <button class="bg-primary text-white w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 hover:shadow-[0_4px_12px_rgba(3,0,190,0.4)] transition-all">
+                  <span class="material-symbols-outlined text-[16px]">add</span>
+                </button>
+              </div>
+              <p class="text-secondary text-xs md:text-sm mt-2 leading-relaxed line-clamp-2">A pure Arabica coffee with bright fruit notes, gentle acidity, and smooth chocolate undertones. Clean and beautifully balanced.</p>
+            </div>
+          </div>
+
+          <!-- Card 4: Washed Valley -->
+          <div class="wwh-menu-card flex gap-4 bg-white p-4 rounded-none transition-all duration-300 cursor-pointer">
+            <div class="w-20 h-20 md:w-24 md:h-24 flex-shrink-0 overflow-hidden bg-surface-container">
+              <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAf1cB52nFPVDuSzvCXHUfAgkK96C7uZcpfVuW7jFeZDTCZ8ywHN13RYj6C3Q_eogePAHlzhapRkfADxEUcOiC0CaM180axXoSDbwh2krEqgPaSMfd3uSMlfzQlMMtYSfusNN4AR3HKyjdk9YJsJxfT8K79_a_WCtXCkX8ZYXNvkj_A_NI906n88OT6EUQFagMiGlpNazNW-VClvFpOMzu6Vp8OxbOteUzHMeENAOX_D0PFr6fug1MnbX_4NOgUnvnbNIYP7S9-McJ3vw" alt="Washed Valley"/>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h4 class="font-headline-md text-base md:text-lg font-bold text-on-surface uppercase">Washed Valley</h4>
+                  <span class="font-label-bold text-sm text-primary">Rs. 375</span>
+                </div>
+                <button class="bg-primary text-white w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 hover:shadow-[0_4px_12px_rgba(3,0,190,0.4)] transition-all">
+                  <span class="material-symbols-outlined text-[16px]">add</span>
+                </button>
+              </div>
+              <p class="text-secondary text-xs md:text-sm mt-2 leading-relaxed line-clamp-2">A pure Arabica coffee with bright fruit notes, gentle acidity, and smooth chocolate undertones. Vibrant from first sip to last.</p>
+            </div>
+          </div>
+
+          <!-- Card 5: Instant Coffee -->
+          <div class="wwh-menu-card flex gap-4 bg-white p-4 rounded-none transition-all duration-300 cursor-pointer">
+            <div class="w-20 h-20 md:w-24 md:h-24 flex-shrink-0 overflow-hidden bg-surface-container">
+              <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBokPUMXOomPVNc3t-mcoLKNPM0inEIteSEzUx05IVEk03-f06dHTNuLuekdVQgiwZAkekNTF5xVtgABsU7zrL_vYZjTUOU0Ii3oCPOapt62nX8VfEPUreycMgM2wMKZo00pUhcsh-GEterPi_l6MZVlufrEC1Eoy_I4u65J5uu7zCWgoimY31VlYB8bHmdidpQj12y-kFzAscjljuyijriqlIrbio3nJ2Lzi8KK-H7Csg-0Vdgic9Aq1viu5A0Lw1hQw8GEC0hv32-BQ" alt="Instant Coffee"/>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h4 class="font-headline-md text-base md:text-lg font-bold text-on-surface uppercase">Instant Coffee</h4>
+                  <span class="font-label-bold text-sm text-primary">Rs. 265</span>
+                </div>
+                <button class="bg-primary text-white w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 hover:shadow-[0_4px_12px_rgba(3,0,190,0.4)] transition-all">
+                  <span class="material-symbols-outlined text-[16px]">add</span>
+                </button>
+              </div>
+              <p class="text-secondary text-xs md:text-sm mt-2 leading-relaxed line-clamp-2">Made from premium Arabica beans, this instant coffee delivers smooth flavor, rich aroma, and a satisfying cup in moments.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<script>
+  function initWhatWeHave() {
+      const section = document.getElementById('wwh-section');
+      if (!section) return;
+
+      const loadingPhase = document.getElementById('wwh-loading');
+      const welcomePhase = document.getElementById('wwh-welcome');
+      const menuPhase = document.getElementById('wwh-menu');
+      const percentText = document.getElementById('wwh-percent');
+      const nextBtn = document.getElementById('wwh-next-btn');
+
+      let hasPlayed = false;
+
+      if (nextBtn) {
+          nextBtn.addEventListener('click', () => showMenu());
+      }
+
+      function showMenu() {
+          welcomePhase.classList.add('wwh-hidden');
+          menuPhase.classList.remove('wwh-hidden');
+          section.style.minHeight = 'auto';
+          section.classList.remove('bg-primary');
+          section.classList.add('bg-background');
+          document.querySelectorAll('.wwh-menu-card').forEach((card, i) => {
+              setTimeout(() => card.classList.add('wwh-active'), i * 120);
+          });
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+              if (entry.isIntersecting && !hasPlayed) {
+                  hasPlayed = true;
+                  startAnimation();
+                  observer.unobserve(entry.target);
+              }
+          });
+      }, { threshold: 0.3 });
+
+      observer.observe(section);
+
+      function startAnimation() {
+          let progress = 0;
+
+          const loadingInterval = setInterval(() => {
+              progress += 1;
+              percentText.textContent = progress + '%';
+
+              if (progress >= 100) {
+                  clearInterval(loadingInterval);
+                  setTimeout(() => {
+                      loadingPhase.classList.add('wwh-hidden');
+                      welcomePhase.classList.remove('wwh-hidden');
+                      setTimeout(() => {
+                          welcomePhase.querySelectorAll('.wwh-slide-left, .wwh-slide-right, .wwh-slide-up').forEach(el => {
+                              el.classList.add('wwh-active');
+                          });
+                      }, 100);
+                      setTimeout(() => showMenu(), 3500);
+                  }, 400);
+              }
+          }, 25);
+      }
+  }
+
+  document.addEventListener('DOMContentLoaded', initWhatWeHave);
+  document.addEventListener('shopify:section:load', function(event) {
+    if (event.target.querySelector('#wwh-section')) {
+      initWhatWeHave();
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "What We Have",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "OUR MENU"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subheading",
+      "default": "WHAT WE HAVE"
+    }
+  ],
+  "presets": [
+    {
+      "name": "What We Have",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
