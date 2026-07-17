@@ -156,7 +156,7 @@
         /* ===== WHAT WE HAVE SECTION ===== */
         .wwh-container {
             position: relative;
-            min-height: 100vh;
+            min-height: 60vh;
             overflow: hidden;
         }
         .wwh-phase {
@@ -309,7 +309,7 @@
   <div class="wwh-phase" id="wwh-loading">
     <div class="flex flex-col items-center">
       <!-- Coffee cup SVG (top-down view with stirring hand) -->
-      <svg viewBox="0 0 200 200" class="w-40 h-40 mb-4 wwh-float" fill="none">
+      <svg viewBox="0 0 200 200" class="w-28 h-28 md:w-36 md:h-36 wwh-float" fill="none">
         <!-- Hand/Arm -->
         <g class="wwh-stir-arm">
           <path d="M190 25 C175 35 165 55 158 72 C154 82 148 88 142 90" stroke="rgba(255,255,255,0.55)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
@@ -330,18 +330,8 @@
         <path d="M94 120 Q100 113 106 120" stroke="rgba(255,255,255,0.15)" stroke-width="1" fill="none"/>
       </svg>
 
-      <!-- Progress Ring -->
-      <svg viewBox="0 0 120 120" class="w-20 h-20">
-        <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="5"/>
-        <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="5"
-                id="wwh-progress-circle"
-                stroke-linecap="round"
-                class="wwh-progress-ring"
-                style="stroke-dasharray: 314.16; stroke-dashoffset: 314.16;"/>
-      </svg>
-
-      <!-- Percentage -->
-      <p id="wwh-percent" class="font-headline-md text-headline-md text-white/70 mt-3 tracking-widest">0%</p>
+      <!-- Percentage directly under coffee cup -->
+      <p id="wwh-percent" class="font-headline-md text-[28px] md:text-headline-md text-white/70 mt-2 tracking-widest">0%</p>
     </div>
   </div>
 
@@ -807,9 +797,7 @@
             const welcomePhase = document.getElementById('wwh-welcome');
             const menuPhase = document.getElementById('wwh-menu');
             const percentText = document.getElementById('wwh-percent');
-            const progressCircle = document.getElementById('wwh-progress-circle');
             const nextBtn = document.getElementById('wwh-next-btn');
-            const circumference = 2 * Math.PI * 50; // r=50
 
             let hasPlayed = false;
 
@@ -844,14 +832,10 @@
 
             function startAnimation() {
                 let progress = 0;
-                progressCircle.style.strokeDasharray = circumference;
-                progressCircle.style.strokeDashoffset = circumference;
 
                 const loadingInterval = setInterval(() => {
                     progress += 1;
                     percentText.textContent = progress + '%';
-                    const offset = circumference - (progress / 100) * circumference;
-                    progressCircle.style.strokeDashoffset = offset;
 
                     if (progress >= 100) {
                         clearInterval(loadingInterval);
