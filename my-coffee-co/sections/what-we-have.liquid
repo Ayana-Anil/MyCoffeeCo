@@ -2,12 +2,12 @@
   /* ===== WHAT WE HAVE SECTION ===== */
   .wwh-container {
       position: relative;
-      min-height: 50vh;
+      min-height: 40vh;
       overflow: hidden;
   }
   @media (min-width: 768px) {
       .wwh-container {
-          min-height: 60vh;
+          min-height: 50vh;
       }
   }
   .wwh-phase {
@@ -93,7 +93,7 @@
   <div class="wwh-phase" id="wwh-loading">
     <div class="flex flex-col items-center">
       <!-- Coffee cup SVG (top-down view with stirring hand) -->
-      <svg viewBox="0 0 200 200" class="w-28 h-28 md:w-36 md:h-36 wwh-float" fill="none">
+      <svg viewBox="0 0 200 200" class="w-20 h-20 md:w-28 md:h-28 wwh-float" fill="none">
         <!-- Hand/Arm -->
         <g class="wwh-stir-arm">
           <path d="M190 25 C175 35 165 55 158 72 C154 82 148 88 142 90" stroke="rgba(255,255,255,0.55)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
@@ -115,7 +115,7 @@
       </svg>
 
       <!-- Percentage directly under coffee cup -->
-      <p id="wwh-percent" class="font-headline-md text-[28px] md:text-headline-md text-white/70 mt-2 tracking-widest">0%</p>
+      <p id="wwh-percent" class="font-headline-md text-[22px] md:text-[28px] text-white/70 mt-2 tracking-widest">0%</p>
     </div>
   </div>
 
