@@ -2,12 +2,14 @@
   /* ===== WHAT WE HAVE SECTION ===== */
   .wwh-container {
       position: relative;
-      min-height: 40vh;
+      height: 620px !important;
+      max-height: 620px !important;
       overflow: hidden;
   }
   @media (min-width: 768px) {
       .wwh-container {
-          min-height: 50vh;
+          height: 850px !important;
+          max-height: 850px !important;
       }
   }
   .wwh-phase {
@@ -87,7 +89,7 @@
   }
 </style>
 
-<section class="wwh-container bg-primary" id="wwh-section">
+<section class="wwh-container bg-primary" id="wwh-section" style="height: 620px; max-height: 620px;">
 
   <!-- PHASE 1: Loading -->
   <div class="wwh-phase" id="wwh-loading">
@@ -312,6 +314,8 @@
           welcomePhase.classList.add('wwh-hidden');
           menuPhase.classList.remove('wwh-hidden');
           section.style.minHeight = 'auto';
+          section.style.height = 'auto';
+          section.style.maxHeight = 'none';
           section.classList.remove('bg-primary');
           section.classList.add('bg-background');
           document.querySelectorAll('.wwh-menu-card').forEach((card, i) => {
