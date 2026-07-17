@@ -1072,12 +1072,13 @@ button {
 }
 
 .mcc-review-card__stars .material-symbols-outlined {
-  color: var(--color-primary);
+  color: #fff;
   font-variation-settings: 'FILL' 1;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .mcc-review-card:hover .mcc-review-card__stars .material-symbols-outlined {
+  color: var(--color-primary);
   transform: scale(1.1);
 }
 

@@ -12,6 +12,11 @@
           max-height: 850px !important;
       }
   }
+  .wwh-container.wwh-menu-active {
+      height: auto !important;
+      max-height: none !important;
+      overflow: visible !important;
+  }
   .wwh-phase {
       position: absolute;
       inset: 0;
@@ -313,6 +318,7 @@
       function showMenu() {
           welcomePhase.classList.add('wwh-hidden');
           menuPhase.classList.remove('wwh-hidden');
+          section.classList.add('wwh-menu-active');
           section.style.minHeight = 'auto';
           section.style.height = 'auto';
           section.style.maxHeight = 'none';
