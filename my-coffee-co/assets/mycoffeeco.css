@@ -507,7 +507,7 @@ button {
    CROWD FAVORITES
    ========================================================================== */
 .mcc-favorites {
-  padding: var(--space-stack-lg) var(--space-margin-mobile);
+  padding: 40px var(--space-margin-mobile);
   max-width: var(--space-container-max);
   margin: 0 auto;
   background-color: var(--color-background);
@@ -515,8 +515,7 @@ button {
 
 @media (min-width: 768px) {
   .mcc-favorites {
-    padding-left: var(--space-margin-desktop);
-    padding-right: var(--space-margin-desktop);
+    padding: var(--space-stack-lg) var(--space-margin-desktop);
   }
 }
 
@@ -567,14 +566,20 @@ button {
 .mcc-favorites__grid {
   display: flex;
   overflow-x: auto;
-  gap: var(--space-gutter);
+  gap: 16px;
   padding-bottom: 16px;
+}
+
+@media (min-width: 768px) {
+  .mcc-favorites__grid {
+    gap: var(--space-gutter);
+  }
 }
 
 /* Product Card */
 .mcc-product-card {
   cursor: pointer;
-  min-width: 300px;
+  min-width: 200px;
   flex-shrink: 0;
 }
 
@@ -588,10 +593,16 @@ button {
   aspect-ratio: 4 / 5;
   overflow: hidden;
   background-color: var(--color-surface-container);
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   position: relative;
   border: 2px solid transparent;
   transition: all 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .mcc-product-card__image-wrap {
+    margin-bottom: 16px;
+  }
 }
 
 .mcc-product-card:hover .mcc-product-card__image-wrap {
@@ -616,14 +627,18 @@ button {
   z-index: 10;
   background-color: var(--color-primary);
   color: #fff;
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  transition: transform 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+}
+
+.mcc-product-card__add-btn span {
+  font-size: 20px;
 }
 
 .mcc-product-card__add-btn:active {
@@ -632,6 +647,7 @@ button {
 
 .mcc-product-card__add-btn:hover {
   transform: rotate(90deg);
+  box-shadow: 0 4px 12px rgba(3, 0, 190, 0.4);
 }
 
 .mcc-product-card__quick-add {
@@ -672,19 +688,31 @@ button {
 
 .mcc-product-card__type {
   font-family: var(--font-body);
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--color-secondary);
 }
 
+@media (min-width: 768px) {
+  .mcc-product-card__type {
+    font-size: 14px;
+  }
+}
+
 .mcc-product-card__name {
   font-family: var(--font-heading);
-  font-size: 24px;
+  font-size: 16px;
   line-height: 1.2;
   font-weight: 700;
   transition: color 0.2s ease;
+}
+
+@media (min-width: 768px) {
+  .mcc-product-card__name {
+    font-size: 24px;
+  }
 }
 
 .mcc-product-card:hover .mcc-product-card__name {
@@ -699,16 +727,28 @@ button {
   display: block;
   color: var(--color-secondary);
   text-decoration: line-through;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 500;
+}
+
+@media (min-width: 768px) {
+  .mcc-product-card__compare-price {
+    font-size: 12px;
+  }
 }
 
 .mcc-product-card__price {
   font-family: var(--font-body);
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.05em;
   color: var(--color-primary);
+}
+
+@media (min-width: 768px) {
+  .mcc-product-card__price {
+    font-size: 14px;
+  }
 }
 
 /* ==========================================================================
@@ -843,7 +883,7 @@ button {
    OUR JOURNEY
    ========================================================================== */
 .mcc-journey {
-  padding: var(--space-stack-lg) var(--space-margin-mobile);
+  padding: 0 var(--space-margin-mobile) var(--space-stack-lg);
   max-width: var(--space-container-max);
   margin: 0 auto;
   background-color: var(--color-background);
@@ -851,8 +891,10 @@ button {
 
 @media (min-width: 768px) {
   .mcc-journey {
+    padding-top: 0;
     padding-left: var(--space-margin-desktop);
     padding-right: var(--space-margin-desktop);
+    padding-bottom: var(--space-stack-lg);
   }
 }
 
@@ -974,7 +1016,7 @@ button {
    REVIEWS
    ========================================================================== */
 .mcc-reviews {
-  background-color: var(--color-on-surface);
+  background-color: var(--color-primary);
   color: #fff;
   padding: var(--space-stack-lg) var(--space-margin-mobile);
 }

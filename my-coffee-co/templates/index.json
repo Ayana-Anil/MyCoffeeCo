@@ -81,14 +81,6 @@
       "settings": {
         "subtitle": "The Classics",
         "title": "CROWD FAVORITES"
-      }
-    },
-    "collage": {
-      "type": "ambiance-collage",
-      "settings": {
-        "title": "VISIT THE SOURCE",
-        "subtitle": "Experience the meticulous craft of brewing in our flagship London workshop. Pure aesthetics, premium beans."
-      }
     },
     "journey": {
       "type": "our-journey",
@@ -160,7 +152,6 @@
     "hero",
     "social-proof",
     "favorites",
-    "collage",
     "journey",
     "reviews"
   ]
